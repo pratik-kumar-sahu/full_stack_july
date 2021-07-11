@@ -37,8 +37,17 @@ function Todo({ todo, setModal }) {
         <div style={{ marginLeft: "1rem" }}>
           <h3 style={{ color: "white" }}>{title}</h3>
           <p style={{ color: "var(--grey-light)" }}>{description}</p>
-          <p style={{ color: "var(--grey-light)" }}>{date}</p>
-          <p style={{ color: "var(--grey-light)" }}>{status}</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: ".5rem",
+            }}
+          >
+            <p className="todo__content-date">{date}</p>
+            <p className="todo__content-status">{status}</p>
+          </div>
         </div>
         <div
           style={{

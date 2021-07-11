@@ -115,13 +115,28 @@
   margin: 0.5rem;
   padding: 1rem;
   border-radius: 1rem;
-  background-color: var(--grey-dark);
+  background-color: var(--grey-darkest);
   transition: all 0.3s ease-in-out;
 
   &__content {
     border-radius: 0.2rem;
     display: flex;
     justify-content: space-between;
+
+    &-date {
+      font-size: 1.2rem;
+      padding: 0rem 0.2rem;
+      margin-right: 1rem;
+      color: var(--grey-darkest);
+      background-color: var(--grey-lightest);
+    }
+
+    &-status {
+      font-size: 1.2rem;
+      padding: 0rem 0.2rem;
+      color: var(--grey-darkest);
+      background-color: var(--grey-lightest);
+    }
   }
 }
 
