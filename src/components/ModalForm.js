@@ -1,20 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TodoContext } from "../stateHandling/TodoContext";
 import "./styles.scss";
 import Tag from "./Tag";
 
 toast.configure();
 
-function ModalForm({ setModal }) {
+function ModalForm({ modal, setModal }) {
+  const { dispatch } = useContext(TodoContext);
+
+  const tagArray = ["Daily", "Work", "Important"];
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     date: "",
     tags: [],
-    color: "",
+    color: "#ff0000",
     status: "",
   });
+
+  useEffect(() => {
+    if (typeof modal === typeof "hello") {
+      const data = localStorage.getItem("todos");
+      const todo = JSON.parse(data).filter((item) => item._id === modal)[0];
+      setFormData(todo);
+    }
+  }, [modal]);
 
   const onChangehandler = (e) => {
     const { name, value } = e.target;
@@ -63,16 +76,35 @@ function ModalForm({ setModal }) {
 
   const submitResponse = (e) => {
     e.preventDefault();
-    console.log(formData);
 
     if (validate()) {
-      setModal(false);
-      toast.success("Successful", { autoClose: 3000 });
+      if (typeof modal === typeof "hello") {
+        dispatch({ type: "EDIT_TODO", payload: { id: modal, todo: formData } });
+        setModal(false);
+        toast.success("Task Edited", { autoClose: 3000 });
+      } else {
+        dispatch({ type: "ADD_TODO", payload: formData });
+        setModal(false);
+        toast.success("Task Added", { autoClose: 3000 });
+      }
     }
   };
 
   return (
     <div className="modal">
+      <button
+        style={{
+          cursor: "pointer",
+          borderRadius: ".3rem",
+          marginBottom: "1rem",
+          padding: ".2rem",
+          borderStyle: "none",
+          outlineStyle: "none",
+        }}
+        onClick={() => setModal(false)}
+      >
+        ❌
+      </button>
       <form className="modal__container" onSubmit={submitResponse}>
         <input
           className="modal__container-input"
@@ -120,7 +152,7 @@ function ModalForm({ setModal }) {
         <div>
           <div className="modal__container-tags">
             <span style={{ marginRight: ".5rem" }}>📌</span>
-            {["Daily", "Work", "Important"].map((tag, i) => (
+            {tagArray.map((tag, i) => (
               <Tag
                 key={i}
                 id={i}
@@ -129,7 +161,6 @@ function ModalForm({ setModal }) {
                 setFormData={setFormData}
               />
             ))}
-            {/* <button>Add Tag</button> */}
           </div>
 
           <input

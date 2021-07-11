@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-function Tag({ id, tag, formData, setFormData }) {
+function Tag({ tag, formData, setFormData }) {
   const [selected, setSelected] = useState(false);
 
   const handleClick = () => {
     setSelected(!selected);
-    console.log(selected);
   };
 
   useEffect(() => {
+    if (tag === formData.tags.find((e) => e === tag)) {
+      setSelected(true);
+    }
+  }, [tag, formData]);
+
+  useEffect(() => {
     if (selected) {
-      setFormData({ ...formData, tags: [...formData.tags, tag] });
+      if (!formData.tags.includes(tag))
+        setFormData({ ...formData, tags: [...formData.tags, tag] });
     } else {
-      console.log("else stmt");
       const index = formData.tags.indexOf(tag);
       if (index !== -1) {
         setFormData({
@@ -21,7 +26,7 @@ function Tag({ id, tag, formData, setFormData }) {
         });
       }
     }
-  }, [selected, tag]);
+  }, [selected, tag, formData, setFormData]);
 
   return (
     <div className={`tag ${selected && "selected"}`} onClick={handleClick}>
