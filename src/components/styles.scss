@@ -124,3 +124,9 @@
     justify-content: space-between;
   }
 }
+
+@media (max-width: 600px) {
+  .todo {
+    margin: 0.5rem auto;
+  }
+}
