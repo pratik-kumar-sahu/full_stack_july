@@ -1,0 +1,48 @@
+// Modal Form
+
+.modal {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--grey-light);
+
+  &__container {
+    width: 50rem;
+    height: 50rem;
+    padding: 2rem;
+    background-color: var(--grey-dark);
+
+    &-input {
+      width: 100%;
+      height: 4rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border-style: none;
+      outline-style: none;
+    }
+
+    &-tags {
+      display: flex;
+    }
+  }
+}
+
+// Tag
+
+.tag {
+  //   width: 5rem;
+  //   height: 5rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  background-color: var(--grey-light);
+}
+
+.selected {
+  background-color: white;
+}
