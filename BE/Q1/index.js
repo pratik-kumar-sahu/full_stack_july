@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const fs = require("fs");
+const combineTextImage = require("./processImage");
 
 const app = express();
 
@@ -12,8 +12,6 @@ const storage = multer.diskStorage({
     cb(null, "image.png");
   },
 });
-
-const processImage = () => {};
 
 const upload = multer({ storage: storage }).single("image");
 
@@ -36,7 +34,14 @@ app.post("/upload", (req, res) => {
     if (err) {
       res.send("Something went wrong");
     }
-    res.send(req.file);
+
+    combineTextImage(req.body.name);
+
+    res.json({
+      status: "success",
+      message: "New image created go to '/image' route",
+      uploadedImage: req.file,
+    });
   });
 });
 
