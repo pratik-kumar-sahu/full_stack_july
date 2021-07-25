@@ -1,9 +1,6 @@
 import React, { useContext, useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 import { TodoContext } from "../stateHandling/TodoContext";
-
-toast.configure();
 
 function Todo({ todo, setModal }) {
   const { title, description, date, color, status } = todo;
@@ -17,7 +14,14 @@ function Todo({ todo, setModal }) {
   const deleteTodo = (id) => {
     if (window.confirm("Are you sure to delete?")) {
       dispatch({ type: "DELETE_TODO", payload: id });
-      toast.success("Task Deleted", { autoClose: 3000 });
+      toast("Post Deleted!", {
+        icon: "👋",
+        style: {
+          borderRadius: "10px",
+          background: "red",
+          color: "#fff",
+        },
+      });
     }
   };
 

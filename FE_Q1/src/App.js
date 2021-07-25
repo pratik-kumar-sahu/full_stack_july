@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "./App.scss";
 import ModalForm from "./components/ModalForm";
 import Todo from "./components/Todo";
+import { Toaster } from "react-hot-toast";
 import { TodoContext } from "./stateHandling/TodoContext";
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
 
   return (
     <div className="app">
+      <Toaster position="top-center" reverseOrder={true} />
       {modal ? (
         <ModalForm modal={modal} setModal={setModal} />
       ) : (

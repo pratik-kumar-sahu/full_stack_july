@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 import { TodoContext } from "../stateHandling/TodoContext";
 import "./styles.scss";
 import Tag from "./Tag";
-
-toast.configure();
 
 function ModalForm({ modal, setModal }) {
   const { dispatch } = useContext(TodoContext);
@@ -42,32 +39,22 @@ function ModalForm({ modal, setModal }) {
     const { title, description, date, tags, color, status } = formData;
 
     if (title.trim().length < 2) {
-      toast.error("Title should be min. 2 characters", { autoClose: 3000 });
+      toast.error("Title should be min. 2 characters");
       return false;
     } else if (description.trim().length < 10) {
-      toast.error("Description should be min. 10 characters", {
-        autoClose: 3000,
-      });
+      toast.error("Description should be min. 10 characters");
       return false;
     } else if (!date.trim()) {
-      toast.error("Due Date is required", {
-        autoClose: 3000,
-      });
+      toast.error("Due Date is required");
       return false;
     } else if (!status.trim()) {
-      toast.error("Select status", {
-        autoClose: 3000,
-      });
+      toast.error("Select status");
       return false;
     } else if (tags.length === 0) {
-      toast.error("Select atleast one tag", {
-        autoClose: 3000,
-      });
+      toast.error("Select atleast one tag");
       return false;
     } else if (color.trim().length < 1) {
-      toast.error("Select a color", {
-        autoClose: 3000,
-      });
+      toast.error("Select a color");
       return false;
     }
 
@@ -81,11 +68,18 @@ function ModalForm({ modal, setModal }) {
       if (typeof modal === typeof "hello") {
         dispatch({ type: "EDIT_TODO", payload: { id: modal, todo: formData } });
         setModal(false);
-        toast.success("Task Edited", { autoClose: 3000 });
+        toast.success("Task Edited");
       } else {
         dispatch({ type: "ADD_TODO", payload: formData });
         setModal(false);
-        toast.success("Task Added", { autoClose: 3000 });
+        toast("Good Job! Task Added", {
+          icon: "👌",
+          style: {
+            borderRadius: "10px",
+            background: "green",
+            color: "#fff",
+          },
+        });
       }
     }
   };
